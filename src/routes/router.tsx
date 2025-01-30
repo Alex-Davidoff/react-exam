@@ -5,6 +5,7 @@ import { LoginPage } from "../pages/LoginPage";
 import { UsersPage } from "../pages/UsersPage";
 import { RecipesPage } from "../pages/RecipesPage";
 import { AuthLayout } from "../layouts/AuthLayout";
+import { UserPage } from "../pages/UserPage";
 
 export const routes = createBrowserRouter([
     {path: '/', element: <MainLayout/>, children: [
@@ -13,6 +14,7 @@ export const routes = createBrowserRouter([
         {path: 'login', element: <LoginPage/>},
         {path: 'auth', element: <AuthLayout/>, children: [
             {path: 'users', element: <UsersPage/>},
+            {path: 'users/:id', element: <UserPage/>},
             {path: 'recipes', element: <RecipesPage/>}
         ]}
     ]}
