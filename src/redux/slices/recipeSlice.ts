@@ -8,6 +8,11 @@ type RecipeSliceType = {
 
 const initRecipeSliceState: RecipeSliceType = {recipes: []}
 
+const loadRecipes = createAsyncThunk('loadUsers', async (_, thunkApi) => {
+    const recipes = await getAll<IRecipe[]>('/recipes');
+    return thunkApi.fulfillWithValue(recipes);
+})
+
 export const recipeSlice = createSlice({
     name: 'recipeSlice',
     initialState: initRecipeSliceState,
@@ -17,9 +22,5 @@ export const recipeSlice = createSlice({
     })
 })
 
-const loadRecipes = createAsyncThunk('loadUsers', async (_, thunkApi) => {
-    const recipes = await getAll<IRecipe[]>('/recipes');
-    return thunkApi.fulfillWithValue(recipes);
-})
 
 export const userActions = {...recipeSlice.actions, loadRecipes}

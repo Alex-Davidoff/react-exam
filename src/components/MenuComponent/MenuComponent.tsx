@@ -1,14 +1,14 @@
 import { Link } from "react-router";
-import { ILoginResponse } from "../../models/IApiReqRes";
+import { useMainDispatch, useMainSelector } from "../../redux/store";
 
 const MenuComponent = () => {
-    const authUser: ILoginResponse | null = null;
+    const dispatch = useMainDispatch();
+    const authUser = useMainSelector((state) => state.currentUserStoreSlice.c_user);
 
-
-    if (authUser) {
+    if (authUser.id) {
         return(
         <div className="component_menu">
-            <p>Auth user props</p>
+            <p>{authUser.id} {authUser.firstName} {authUser.lastName}</p>
         </div>
         )
     } else {

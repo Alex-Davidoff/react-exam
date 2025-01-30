@@ -4,16 +4,23 @@ import { joiResolver } from "@hookform/resolvers/joi";
 import { userValidator } from "../../validators/user.login.validator";
 import { useNavigate } from "react-router";
 import { userLogin } from "../../services/api.service";
+import { currentUserActions } from "../../redux/slices/currentUserSlice";
+import { useMainDispatch } from "../../redux/store";
 
 export const LoginComponent = () => {
     const navigate = useNavigate();
     const goToUsers = () => { navigate('/auth/users') };
+
+    const dispatch = useMainDispatch();
+
     const {handleSubmit, register, formState: {errors}} = 
        useForm<IUserLoginPass>({mode: 'all', resolver: joiResolver(userValidator)});
 
        const customHandler = async (formDataProps: IUserLoginPass) => {
         await userLogin(formDataProps).then((response) => {
             if (response) {
+                console.log('login resp', response);
+                dispatch(currentUserActions.setCurrentUser(response));
                 goToUsers();
             }
           });

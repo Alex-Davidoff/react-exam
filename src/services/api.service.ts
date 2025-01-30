@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+//import { useEffect, useState } from "react";
 import { ILoginResponse, IUserLoginPass } from "../models/IApiReqRes";
 
+/*
 export const useFetch = <T,>(endpoint: string, defaultValue: T) => {
     const [object, setObject] = useState<T>(defaultValue);
 
@@ -14,7 +15,7 @@ export const useFetch = <T,>(endpoint: string, defaultValue: T) => {
     },[])
     
     return object;
-}
+} */
 
 export const getAll =  async <T,> (endpoint:string) => {
     const responseRes = await fetch(import.meta.env.VITE_API_URL+endpoint)
