@@ -11,7 +11,7 @@ export const UserPage = () => {
     return(
         <div>
             <MenuComponent/>
-            {users.filter((user) => (user.id===Number(id))).map((user) => <UserComponent user={user}/>)}  
+            {users.filter((user) => (user.id===Number(id))).map((user) => <UserComponent key={user.id} user={user}/>)}  
         </div>
     )
 }

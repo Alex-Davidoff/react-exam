@@ -43,3 +43,8 @@ export interface ILoginResponse extends ITokensPair{
   gender: string;
   image: string;
 }
+
+export type FetchParams = {
+    skip: number;
+    limit: number;
+};
