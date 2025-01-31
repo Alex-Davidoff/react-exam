@@ -5,25 +5,26 @@ import { FetchParams, IUsersResponse } from "../../models/IApiReqRes";
 
 type IUsersSliceType = {
     users: IUser[],
+    total: number
 }
 
 const initUserSliceState: IUsersSliceType = {
-    users: []
+    users: [],
+    total: 0
 }
 
-const loadUsers = createAsyncThunk<IUser[], FetchParams>('loadUsers', async ({skip, limit}, thunkApi) => {
-    console.log(skip, limit);
-    
-    const {users} = await getAll<IUsersResponse>('/users');
-    return thunkApi.fulfillWithValue(users);
+const loadUsers = createAsyncThunk<IUsersSliceType, FetchParams>('loadUsers', async ({skip, limit}, thunkApi) => {
+    const {users, total} = await getAll<IUsersResponse>('/users', skip, limit);
+    return thunkApi.fulfillWithValue({users, total});
 })
 
 export const userSlice = createSlice({
     name: 'userSlice',
     initialState: initUserSliceState,
     reducers: {},
-    extraReducers: builder => builder.addCase(loadUsers.fulfilled, (state, action: PayloadAction<IUser[]>) => {
-        state.users = action.payload;
+    extraReducers: builder => builder.addCase(loadUsers.fulfilled, (state, action: PayloadAction<IUsersSliceType>) => {
+        state.users = action.payload.users;
+        state.total = action.payload.total;
     })
 })
 

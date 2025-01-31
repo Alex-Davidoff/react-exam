@@ -15,9 +15,16 @@ export const useFetch = <T,>(endpoint: string, defaultValue: T) => {
     },[])
     
     return object;
+} */ //  , skip: number, limit: number
+/*
+export const getAll =  async <T,> (endpoint:string) => {
+    const responseRes = await fetch(import.meta.env.VITE_API_URL+endpoint)
+    .then((response) => response.json());
+    console.log(responseRes);
+    return responseRes as T;
 } */
 
-export const getAll =  async <T,> (endpoint:string) => {
+export const getAll =  async <T,> (endpoint:string, skip: number, limit: number) => {
     const responseRes = await fetch(import.meta.env.VITE_API_URL+endpoint)
     .then((response) => response.json());
     console.log(responseRes);
