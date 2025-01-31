@@ -18,9 +18,10 @@ export const UsersPage = () => {
     const [searchParams, setSearchParams] = useSearchParams({skip:'0', limit: '30'});
     const skip:number = Number(searchParams.get('skip') || '0');
     const limit:number = Number(searchParams.get('limit') || '30');
+    
 
     useEffect(() => {
-        dispatch(userActions.loadUsers({skip, limit}));        
+        dispatch(userActions.loadUsers(searchParams.toString()));        
     },[skip, limit]);
 
     return(

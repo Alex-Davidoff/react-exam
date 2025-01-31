@@ -24,8 +24,10 @@ export const getAll =  async <T,> (endpoint:string) => {
     return responseRes as T;
 } */
 
-export const getAll =  async <T,> (endpoint:string, skip: number, limit: number) => {
-    const responseRes = await fetch(import.meta.env.VITE_API_URL+endpoint)
+export const getAll =  async <T,> (endpoint:string, searchParams: string) => {
+    let sp = '';
+    if (searchParams) {sp = '?'+searchParams}
+    const responseRes = await fetch(import.meta.env.VITE_API_URL+endpoint+sp)
     .then((response) => response.json());
     console.log(responseRes);
     return responseRes as T;

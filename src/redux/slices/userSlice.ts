@@ -1,7 +1,7 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { IUser } from "../../models/IUser";
 import { getAll } from "../../services/api.service";
-import { FetchParams, IUsersResponse } from "../../models/IApiReqRes";
+import { IUsersResponse } from "../../models/IApiReqRes";
 
 type IUsersSliceType = {
     users: IUser[],
@@ -13,8 +13,8 @@ const initUserSliceState: IUsersSliceType = {
     total: 0
 }
 
-const loadUsers = createAsyncThunk<IUsersSliceType, FetchParams>('loadUsers', async ({skip, limit}, thunkApi) => {
-    const {users, total} = await getAll<IUsersResponse>('/users', skip, limit);
+const loadUsers = createAsyncThunk<IUsersSliceType, string>('loadUsers', async (searchParams, thunkApi) => {
+    const {users, total} = await getAll<IUsersResponse>('/users', searchParams);
     return thunkApi.fulfillWithValue({users, total});
 })
 
