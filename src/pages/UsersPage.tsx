@@ -18,7 +18,9 @@ export const UsersPage = () => {
 
     useEffect(() => {
         dispatch(userActions.loadUsers(searchParams.toString())); 
-        setLSSearchParams(lsName, searchParams.toString());
+        const skip: string = searchParams.get('skip') || '0';
+        const limit: string = searchParams.get('limit') || '30';
+        setLSSearchParams(lsName, {skip: skip, limit: limit});
     },[searchParams]);
 
     return(

@@ -9,7 +9,7 @@ export const getLSUser = ():ILoginResponse | null => {
     return user ? (JSON.parse(user) as ILoginResponse) : null;
 }
 
-export const setLSSearchParams = (spName: string, spParams: string) => {
+export const setLSSearchParams = (spName: string, spParams: Record<string, string>) => {
     localStorage.setItem(spName, JSON.stringify(spParams));
 }
 
