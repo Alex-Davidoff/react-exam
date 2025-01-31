@@ -1,15 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSearchParams } from "react-router"
+import { getLSSearchParams } from "../../services/local.storage";
 
 interface IPaginationParams{
     ucount: number;
     utotal: number;
+    lsName: string;
 }
 
-export const PaginationComponent = ({ucount, utotal}:IPaginationParams) => {
-    const [searchParams, setSearchParams] = useSearchParams({skip:'0', limit: '30'});
+export const PaginationComponent = ({ucount, utotal, lsName}:IPaginationParams) => {
+
+    const [searchParams, setSearchParams] = useSearchParams(getLSSearchParams(lsName));
     const skip:number = Number(searchParams.get('skip') || '0');
     let limit:number = Number(searchParams.get('limit') || '30');
+    const selectedValue = limit.toString()
+
 
     const handleSelectOnChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         limit = Number(event.target.value);
@@ -28,7 +33,7 @@ export const PaginationComponent = ({ucount, utotal}:IPaginationParams) => {
 
             <button onClick={() => {
                 if ((skip+limit)<utotal) {
-                    setSearchParams({skip: (skip+limit).toString(), limit: (limit).toString()}); 
+                       setSearchParams({skip: (skip+limit).toString(), limit: (limit).toString()}); 
                 }
             }}
             className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" 
@@ -36,8 +41,8 @@ export const PaginationComponent = ({ucount, utotal}:IPaginationParams) => {
 
             <h2>{skip+1} - {skip+ucount} / {utotal}</h2>
 
-            <select onChange={handleSelectOnChange}>
-                <option defaultValue="30">30</option>
+            <select value={selectedValue} onChange={handleSelectOnChange}>
+                <option value="30">30</option>
                 <option value="20">20</option>
                 <option value="10">10</option>
             </select>
