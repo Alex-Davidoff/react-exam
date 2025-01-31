@@ -2,9 +2,9 @@ import { IRecipe } from "./IRecipe";
 import { IUser } from "./IUser";
 
 interface IBaseResponseProps {
-    total: number;
-    skip: number;
-    limit: number;
+    total: number,
+    skip: number,
+    limit: number
 }
 
 export interface IUsersResponse extends IBaseResponseProps {
@@ -29,17 +29,17 @@ export interface IRenewTokenProps {
     expiresInMins: number
 }
 
-interface ITokensPair {
+export interface ITokensPair {
     accessToken: string;
     refreshToken: string;
   }
 
 export interface ILoginResponse extends ITokensPair{
-  id: number;
-  username: string;
-  email: string;
-  firstName: string;
-  lastName: string;
-  gender: string;
-  image: string;
+  id: number,
+  username: string,
+  email: string,
+  firstName: string,
+  lastName: string,
+  gender: string,
+  image: string
 }

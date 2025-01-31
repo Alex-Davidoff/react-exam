@@ -27,7 +27,7 @@ export const UsersPage = () => {
         <div className="page_users">
             <MenuComponent/>
             <UsersComponent users={users}/>
-            <PaginationComponent ucount={users_count} utotal={users_total} lsName={lsName}/>
+            <PaginationComponent arrayCount={users_count} arrayTotal={users_total} lsName={lsName}/>
         </div>
     )
 }

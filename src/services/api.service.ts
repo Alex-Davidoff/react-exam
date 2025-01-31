@@ -1,36 +1,56 @@
-//import { useEffect, useState } from "react";
-import { ILoginResponse, IUserLoginPass } from "../models/IApiReqRes";
+import { ILoginResponse, ITokensPair, IUserLoginPass } from "../models/IApiReqRes";
+import { getLSUser, setLSUser } from "./local.storage";
 
-/*
-export const useFetch = <T,>(endpoint: string, defaultValue: T) => {
-    const [object, setObject] = useState<T>(defaultValue);
+export const getAuthData = <T,> (endpoint:string, searchParams: string) => {
+    try {
+        const responseObj = getAll<T>(endpoint, searchParams);
+        return responseObj as T;
+    } catch {
+        try {
+            refreshTokens();
+            const responseObj = getAll<T>(endpoint, searchParams);
+            return responseObj as T;
+        } catch {
+            return null
+        }
+    }
+}
 
-    useEffect( () => {
-        fetch(import.meta.env.VITE_API_URL+endpoint)
-        .then((response) => response.json())
-        .then((json_response) => {
-            setObject(json_response);    
-        })
-
-    },[])
+const refreshTokens = (): void =>{
+    let cuser = getLSUser();
     
-    return object;
-} */ //  , skip: number, limit: number
-/*
-export const getAll =  async <T,> (endpoint:string) => {
-    const responseRes = await fetch(import.meta.env.VITE_API_URL+endpoint)
-    .then((response) => response.json());
-    console.log(responseRes);
-    return responseRes as T;
-} */
+    const oldRefreshToken = cuser?.refreshToken;
+    const {accessToken, refreshToken} = fetch(import.meta.env.VITE_API_URL+'/auth/refresh', 
+        {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          refreshToken: oldRefreshToken,
+          expiresInMins: import.meta.env.VITE_TOKEN_LIFETIME, 
+        })
+      })
+      .then((res) =>(res.json()))
+    cuser?.accessToken = accessToken;
+
+
+}
 
 export const getAll =  async <T,> (endpoint:string, searchParams: string) => {
     let sp = '';
-    if (searchParams) {sp = '?'+searchParams}
-    const responseRes = await fetch(import.meta.env.VITE_API_URL+endpoint+sp)
+    if (searchParams) {sp = '?'+searchParams};
+    const cuser = getLSUser();
+    const accessToken = cuser?.accessToken;
+    const responseRes = await fetch(import.meta.env.VITE_API_URL+'/auth'+endpoint+sp,
+        {
+            method: 'GET',
+            headers: {
+              'Authorization': 'Bearer '+accessToken, 
+            }
+        }
+    )
     .then((response) => response.json());
     console.log(responseRes);
-    return responseRes as T;
+    return responseRes as T;  
 }
 
 export const userLogin = async ({username, password}: IUserLoginPass): Promise<ILoginResponse | void> => {
