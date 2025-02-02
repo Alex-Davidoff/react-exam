@@ -11,6 +11,7 @@ export const UsersPage = () => {
     const dispatch = useMainDispatch();
     const users = useMainSelector((state) => state.userStoreSlice.users);
     const users_total = useMainSelector((state) => state.userStoreSlice.total);
+    
     const users_count = users.length;
     const lsName = 'Users';
     
