@@ -17,7 +17,6 @@ export const LoginComponent = () => {
        const customHandler = async (formDataProps: IUserLoginPass) => {
         await userLogin(formDataProps).then((response) => {
             if (response) {
-                console.log('login resp', response);
                 setLSUser(response);
                 goToUsers();
             }
