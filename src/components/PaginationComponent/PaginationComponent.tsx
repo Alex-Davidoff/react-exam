@@ -22,7 +22,7 @@ export const PaginationComponent = ({arrayCount, arrayTotal, lsName}:IPagination
     }
 
     return(
-        <div className="pag_panel flex items-center gap-4">
+        <div className="pag_panel flex items-center gap-4 pl-4">
             <button onClick={() => {
                 if (skip>=limit) {
                     setSearchParams({skip: (skip-limit).toString(), limit: (limit).toString()});

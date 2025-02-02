@@ -10,8 +10,7 @@ export const getLSUser = ():ILoginResponse | null => {
 }
 
 export const setLSSearchParams = (spName: string, spParams: Record<string, string>) => {
-    const spParamsToSave = {skip: `${spParams.skip}`, limit: `${spParams.limit}`}
-    localStorage.setItem(spName, JSON.stringify(spParamsToSave));
+    localStorage.setItem(spName, JSON.stringify(spParams));
 }
 
 export const getLSSearchParams = (spName: string): Record<string, string | string[]> => {

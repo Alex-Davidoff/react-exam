@@ -6,6 +6,7 @@ import { userActions } from "../redux/slices/userSlice";
 import { useSearchParams } from "react-router";
 import { PaginationComponent } from "../components/PaginationComponent/PaginationComponent";
 import { getLSSearchParams, setLSSearchParams } from "../services/local.storage";
+import SearchComponent from "../components/SearchComponent/SearchComponent";
 
 export const UsersPage = () => {
     const dispatch = useMainDispatch();
@@ -26,6 +27,7 @@ export const UsersPage = () => {
     return(
         <div className="page_users">
             <MenuComponent/>
+            <SearchComponent searchBy="users"/>
             <UsersComponent users={users}/>
             <PaginationComponent arrayCount={users_count} arrayTotal={users_total} lsName={lsName}/>
         </div>
