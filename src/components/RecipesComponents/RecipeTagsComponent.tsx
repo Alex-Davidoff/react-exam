@@ -7,7 +7,7 @@ export const RecipeTagsComponent = ({tags}: ITagsProps) => {
     return(
         <ul className="flex gap-4">
             {tags.map((tag, index) => (
-                <li key={index}>{tag}</li>
+                <li key={index}>#{tag}</li>
             ))}
         </ul>
     )}

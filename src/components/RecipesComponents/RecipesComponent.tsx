@@ -4,10 +4,9 @@ import { RecipeTagsComponent } from "./RecipeTagsComponent";
 
 interface IRecipesProps {
     recipes: IRecipe[],
-    userid: number
 }
 
-const RecipesComponent = ({recipes, userid}: IRecipesProps) => {
+const RecipesComponent = ({recipes}: IRecipesProps) => {
     if (recipes) {
     return(
         <div className="component_recipes">

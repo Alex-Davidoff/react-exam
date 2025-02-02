@@ -7,9 +7,11 @@ export const UserPage = () => {
 
     const users = useMainSelector((state) => state.userStoreSlice.users);
 
+    if (users){
     return(
         <div>
-            {users.filter((user) => (user.id===Number(id))).map((user) => <UserComponent key={user.id} user={user}/>)}  
+            {users.filter((user) => (user.id===Number(id)))
+            .map((user) => <UserComponent key={user.id} user={user}/>)}  
         </div>
-    )
+    )}
 }

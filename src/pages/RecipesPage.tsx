@@ -25,7 +25,7 @@ export const RecipesPage = () => {
     return(
         <div key="recipes" className="page_recipes">
             <SearchComponent searchBy={lsName}/>
-            <RecipesComponent recipes={recipes} userid={0}/>
+            <RecipesComponent recipes={recipes}/>
             <PaginationComponent arrayCount={recipes_count} arrayTotal={recipes_total}/>
         </div>
     )
