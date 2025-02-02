@@ -12,7 +12,8 @@ export const getAuthData = async <T,> (endpoint:string, searchParams: string) =>
             const responseObj = await getAll<T>(endpoint, searchParams);
             return responseObj as T;
         } catch {
-            return null
+            setLSUser(null);
+            return null;
         }
     }
 }

@@ -1,5 +1,4 @@
 import { useParams } from "react-router";
-import MenuComponent from "../components/MenuComponent/MenuComponent"
 import { UserComponent } from "../components/UsersComponents/UserComponent";
 import { useMainSelector } from "../redux/store";
 
@@ -10,7 +9,6 @@ export const UserPage = () => {
 
     return(
         <div>
-            <MenuComponent/>
             {users.filter((user) => (user.id===Number(id))).map((user) => <UserComponent key={user.id} user={user}/>)}  
         </div>
     )

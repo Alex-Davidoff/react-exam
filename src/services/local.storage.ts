@@ -1,7 +1,8 @@
 import { ILoginResponse } from "../models/IApiReqRes";
 
-export const setLSUser = (user: ILoginResponse):void => {
-    localStorage.setItem('user',JSON.stringify(user));
+export const setLSUser = (user: ILoginResponse | null):void => {
+    if (user) {localStorage.setItem('user',JSON.stringify(user))}
+    else {localStorage.setItem('user', '')}
 }
 
 export const getLSUser = ():ILoginResponse | null => {
