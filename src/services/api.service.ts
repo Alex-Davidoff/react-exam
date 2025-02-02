@@ -2,7 +2,7 @@ import { ILoginResponse, ITokensPair, IUserLoginPass } from "../models/IApiReqRe
 import { getLSUser, setLSUser } from "./local.storage";
 
 export const getAuthData = async <T,> (endpoint:string, searchParams: string) => {
-    console.log('try getAuthData', searchParams);
+    console.log('try getAuthData', endpoint, searchParams);
     try {
         const responseObj = await getAll<T>(endpoint, searchParams);
         return responseObj as T;

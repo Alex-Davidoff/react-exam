@@ -43,4 +43,4 @@ export const recipeSlice = createSlice({
     })
 })
 
-export const userActions = {...recipeSlice.actions, loadRecipes}
+export const recipeActions = {...recipeSlice.actions, loadRecipes}
