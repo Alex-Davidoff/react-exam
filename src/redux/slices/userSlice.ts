@@ -13,9 +13,15 @@ const initUserSliceState: IUsersSliceType = {
     total: 0
 }
 
-const loadUsers = createAsyncThunk<IUsersSliceType, string>('loadUsers', async (searchParams, thunkApi) => {
-    const {users, total} = await getAuthData<IUsersResponse>('/users', searchParams);
-    return thunkApi.fulfillWithValue({users, total});
+const loadUsers = createAsyncThunk<IUsersSliceType, URLSearchParams>('loadUsers', async (searchParams, thunkApi) => {
+    const findQuery = searchParams.get('q') || '';
+    if (findQuery) {
+        const {users, total} = await getAuthData<IUsersResponse>('/users/search', searchParams.toString());
+        return thunkApi.fulfillWithValue({users, total});
+    } else {
+        const {users, total} = await getAuthData<IUsersResponse>('/users', searchParams.toString());
+        return thunkApi.fulfillWithValue({users, total});
+    }
 })
 
 export const userSlice = createSlice({

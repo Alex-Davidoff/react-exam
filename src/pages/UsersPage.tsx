@@ -13,12 +13,12 @@ export const UsersPage = () => {
     const users = useMainSelector((state) => state.userStoreSlice.users);
     const users_total = useMainSelector((state) => state.userStoreSlice.total);
     const users_count = users.length;
-    const lsName = 'spUsers';
+    const lsName = 'Users';
     
     const [searchParams, setSearchParams] = useSearchParams(getLSSearchParams(lsName));
 
     useEffect(() => {
-        dispatch(userActions.loadUsers(searchParams.toString())); 
+        dispatch(userActions.loadUsers(searchParams)); 
         const skip: string = searchParams.get('skip') || '0';
         const limit: string = searchParams.get('limit') || '30';
         setLSSearchParams(lsName, {skip: skip, limit: limit});
@@ -27,7 +27,7 @@ export const UsersPage = () => {
     return(
         <div className="page_users">
             <MenuComponent/>
-            <SearchComponent searchBy="users"/>
+            <SearchComponent searchBy={lsName}/>
             <UsersComponent users={users}/>
             <PaginationComponent arrayCount={users_count} arrayTotal={users_total} lsName={lsName}/>
         </div>

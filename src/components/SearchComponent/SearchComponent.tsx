@@ -1,18 +1,22 @@
 import { joiResolver } from "@hookform/resolvers/joi";
 import { useForm } from "react-hook-form";
 import { searchValidator } from "../../validators/search.validator";
+import { useSearchParams } from "react-router";
+import { getLSSearchParams } from "../../services/local.storage";
 
 interface ISearchByParams{
     searchBy: string
 }
 
 const SearchComponent = ({searchBy}: ISearchByParams) => {
+    const [searchParams, setSearchParams] = useSearchParams(getLSSearchParams(searchBy));
+
     const {handleSubmit, register, formState: {errors}} = 
        useForm<ISearchByParams>({mode: 'all', resolver: joiResolver(searchValidator)});
     
     const customHandler = async (formDataProps: ISearchByParams) => {
         console.log(formDataProps.searchBy);
-                
+        setSearchParams({q: formDataProps.searchBy});
         }
 
     return(
