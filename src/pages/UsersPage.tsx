@@ -5,7 +5,6 @@ import { useMainDispatch, useMainSelector } from "../redux/store";
 import { userActions } from "../redux/slices/userSlice";
 import { useSearchParams } from "react-router";
 import { PaginationComponent } from "../components/PaginationComponent/PaginationComponent";
-import { getLSSearchParams, setLSSearchParams } from "../services/local.storage";
 import SearchComponent from "../components/SearchComponent/SearchComponent";
 
 export const UsersPage = () => {
@@ -15,13 +14,10 @@ export const UsersPage = () => {
     const users_count = users.length;
     const lsName = 'Users';
     
-    const [searchParams, setSearchParams] = useSearchParams(getLSSearchParams(lsName));
+    const [searchParams, setSearchParams] = useSearchParams();
 
     useEffect(() => {
-        dispatch(userActions.loadUsers(searchParams)); 
-        const skip: string = searchParams.get('skip') || '0';
-        const limit: string = searchParams.get('limit') || '30';
-        setLSSearchParams(lsName, {skip: skip, limit: limit});
+        dispatch(userActions.loadUsers(searchParams));         
     },[searchParams]);
 
     return(
@@ -29,7 +25,7 @@ export const UsersPage = () => {
             <MenuComponent/>
             <SearchComponent searchBy={lsName}/>
             <UsersComponent users={users}/>
-            <PaginationComponent arrayCount={users_count} arrayTotal={users_total} lsName={lsName}/>
+            <PaginationComponent arrayCount={users_count} arrayTotal={users_total}/>
         </div>
     )
 }
