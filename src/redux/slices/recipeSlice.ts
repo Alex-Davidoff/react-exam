@@ -15,6 +15,7 @@ const initRecipeSliceState: RecipeSliceType = {
 
 const loadRecipes = createAsyncThunk('loadUsers', async (searchParams: URLSearchParams, thunkApi) => {
     const findQuery = searchParams.get('q') || '';
+    const tagQuery = searchParams.get('tag') || '';
     if (findQuery) {
         if (findQuery.match(/[a-zA-Z]/g)) {
             const {recipes, total} = await getAuthData<IRecipesResponse>('/recipes/search', searchParams.toString());
@@ -27,6 +28,9 @@ const loadRecipes = createAsyncThunk('loadUsers', async (searchParams: URLSearch
                 return thunkApi.fulfillWithValue({recipes, total});
             }
         }
+    } else if (tagQuery){
+        const {recipes, total} = await getAuthData<IRecipesResponse>('/recipes/tag/'+tagQuery, '');
+        return thunkApi.fulfillWithValue({recipes, total});
     } else {
         const {recipes, total} = await getAuthData<IRecipesResponse>('/recipes', searchParams.toString());
         return thunkApi.fulfillWithValue({recipes, total});

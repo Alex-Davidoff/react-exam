@@ -8,7 +8,7 @@ export const UserComponent = ({user}: IUserProps) => {
     if (user) {
     return(
         <div>
-            <h2>{user.firstName} {user.lastName}</h2>
+            <h2 className="italic text-2xl">{user.firstName} {user.lastName}</h2>
             <p>({user.username})</p>
             <img src={user.image} alt={`${user.firstName} ${user.lastName}`} />
             <h2>{user.age} {user.gender} {user.birthDate}</h2>

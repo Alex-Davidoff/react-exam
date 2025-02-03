@@ -11,7 +11,7 @@ export const RecipeComponent = ({recipe}: IRecipeProps) => {
     if (recipe){
     return(
         <div className="component_recipe">
-            <h2>{recipe.name}</h2>
+            <h2 className="italic text-2xl">{recipe.name}</h2>
             <span className="flex gap-4 flex-wrap">
             <p>prepTimeMinutes: {recipe.prepTimeMinutes}</p>
             <p>cookTimeMinutes: {recipe.cookTimeMinutes}</p>
@@ -23,14 +23,14 @@ export const RecipeComponent = ({recipe}: IRecipeProps) => {
             <p>reviewCount: {recipe.reviewCount}</p>
             </span>
             <RecipeTagsComponent tags={recipe.tags}/>
-            <img src={recipe.image} alt={recipe.name}/>
-            <p>ingredients: <RecipeArrayStringsComponent arrstr={recipe.ingredients}/>
-            </p>
-            <p>instructions: <RecipeArrayStringsComponent arrstr={recipe.instructions}/>
-            </p>
-            <p>mealType: <RecipeArrayStringsComponent arrstr={recipe.mealType}/>
-            </p>
-            <p className="underline"><Link to={`/auth/users/${recipe.userId}`}>To user</Link></p>
+            <img src={recipe.image} alt={recipe.name} className="size-120 mx-auto"/>
+            <span>ingredients: <RecipeArrayStringsComponent arrstr={recipe.ingredients}/>
+            </span>
+            <span>instructions: <RecipeArrayStringsComponent arrstr={recipe.instructions}/>
+            </span>
+            <span>mealType: <RecipeArrayStringsComponent arrstr={recipe.mealType}/>
+            </span>
+            <p className="underline"><Link to={`/auth/users/${recipe.userId}`}>To author</Link></p>
         </div>
     )}
 }
