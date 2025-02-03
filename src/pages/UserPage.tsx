@@ -3,6 +3,7 @@ import { UserComponent } from "../components/UsersComponents/UserComponent";
 import { useMainDispatch, useMainSelector } from "../redux/store";
 import { useEffect } from "react";
 import { userActions } from "../redux/slices/userSlice";
+import { UserRecipesComponent } from "../components/UsersComponents/UserRecipesComponent";
 
 export const UserPage = () => {
     const {id} = useParams();
@@ -26,7 +27,9 @@ export const UserPage = () => {
     return(
         <div>
             {users.filter((user) => (user.id===Number(id)))
-            .map((user) => <UserComponent key={user.id} user={user}/>)}  
+            .map((user) => (
+            <UserComponent key={user.id} user={user}/>
+            ))}  
         </div>
     )}
 }
